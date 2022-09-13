@@ -8,3 +8,8 @@ biobb_wf_cmip/notebooks/*.web.ipynb
 biobb_wf_cmip/notebooks/*.docs.ipynb
 *.old.ipynb
 *.bk.ipynb
+
+# MACOSX
+.DS_Store
+.AppleDouble
+.LSOverride
