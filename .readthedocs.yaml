@@ -17,4 +17,3 @@ sphinx:
 python:
   install:
     - method: pip
-      path: .
