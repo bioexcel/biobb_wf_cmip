@@ -22,11 +22,10 @@ The code wrapped is the ***Classical Molecular Interaction Potentials ([CMIP](ht
   
 ### Auxiliar libraries used
 
- - [nb_conda_kernels](https://github.com/Anaconda-Platform/nb_conda_kernels): Enables a Jupyter Notebook or JupyterLab application in one conda environment to access kernels for Python, R, and other languages found in other environments.
- - [ipywidgets](https://github.com/jupyter-widgets/ipywidgets): Interactive HTML widgets for Jupyter notebooks and the IPython kernel.
- - [nglview](http://nglviewer.org/#nglview): Jupyter/IPython widget to interactively view molecular structures and trajectories in notebooks.
- - [plotly](https://plotly.com/python/): Python Open Source Graphing Library. 
-
+* [jupyter](https://jupyter.org/): Free software, open standards, and web services for interactive computing across all programming languages.
+* [nglview](http://nglviewer.org/#nglview): Jupyter/IPython widget to interactively view molecular structures and trajectories in notebooks.
+* [plotly](https://plot.ly/python/offline/): Python interactive graphing library integrated in Jupyter notebooks.
+* [simpletraj](https://github.com/arose/simpletraj): Lightweight coordinate-only trajectory reader based on code from GROMACS, MDAnalysis and VMD.
 
 ### Conda Installation and Launch
 
@@ -34,10 +33,9 @@ The code wrapped is the ***Classical Molecular Interaction Potentials ([CMIP](ht
 git clone https://github.com/bioexcel/biobb_wf_cmip.git
 cd biobb_wf_cmip
 conda env create -f conda_env/environment.yml
-conda activate biobb_wf_cmip
-jupyter-nbextension enable --py --user widgetsnbextension
+conda activate biobb_CMIP_tutorial
 jupyter-notebook biobb_wf_cmip/notebooks/biobb_wf_cmip.ipynb
-  ``` 
+```
 
 ***
 ## Pipeline steps

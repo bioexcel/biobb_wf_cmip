@@ -7457,16 +7457,16 @@ a.anchor-link {
 <li><a href="https://github.com/bioexcel/biobb_amber">biobb_amber</a>: Tools to setup and simulate atomistic MD simulations using AMBER MD package.</li>
 </ul>
 <h3 id="Auxiliar-libraries-used">Auxiliar libraries used<a class="anchor-link" href="#Auxiliar-libraries-used">¶</a></h3><ul>
-<li><a href="https://github.com/Anaconda-Platform/nb_conda_kernels">nb_conda_kernels</a>: Enables a Jupyter Notebook or JupyterLab application in one conda environment to access kernels for Python, R, and other languages found in other environments.</li>
-<li><a href="https://github.com/jupyter-widgets/ipywidgets">ipywidgets</a>: Interactive HTML widgets for Jupyter notebooks and the IPython kernel.</li>
+<li><a href="https://jupyter.org/">jupyter</a>: Free software, open standards, and web services for interactive computing across all programming languages.</li>
 <li><a href="http://nglviewer.org/#nglview">nglview</a>: Jupyter/IPython widget to interactively view molecular structures and trajectories in notebooks.</li>
 <li><a href="https://plotly.com/python/">plotly</a>: Python Open Source Graphing Library.</li>
+<li><a href="https://github.com/arose/simpletraj">simpletraj</a>: Lightweight coordinate-only trajectory reader based on code from GROMACS, MDAnalysis and VMD.</li>
 </ul>
-<h3 id="Conda-Installation-and-Launch">Conda Installation and Launch<a class="anchor-link" href="#Conda-Installation-and-Launch">¶</a></h3><div class="highlight"><pre><span></span><span class="go">git clone https://github.com/bioexcel/biobb_wf_cmip.git</span>
+<h3 id="Conda-Installation-and-Launch">Conda Installation and Launch<a class="anchor-link" href="#Conda-Installation-and-Launch">¶</a></h3><div class="highlight"><pre>
+<span class="go">git clone https://github.com/bioexcel/biobb_wf_cmip.git</span>
 <span class="go">cd biobb_wf_cmip</span>
 <span class="go">conda env create -f conda_env/environment.yml</span>
 <span class="go">conda activate biobb_wf_cmip</span>
-<span class="go">jupyter-nbextension enable --py --user widgetsnbextension</span>
 <span class="go">jupyter-notebook biobb_wf_cmip/notebooks/biobb_wf_cmip.ipynb</span>
 </pre></div>
 <hr/>
