@@ -48,7 +48,7 @@ jupyter-notebook biobb_wf_cmip/notebooks/biobb_wf_cmip.ipynb
 
 Click here to [view tutorial in Read the Docs](https://biobb-wf-cmip.readthedocs.io/en/latest/tutorial.html)
 
-Click here to [execute tutorial in Binder](https://bioexcel-binder.tsi.ebi.ac.uk/v2/gh/bioexcel/biobb_wf_cmip/main?filepath=biobb_wf_cmip%2Fnotebooks%2Fbiobb_wf_cmip.ipynb)
+Click here to [execute tutorial in Binder](https://mybinder.org/v2/gh/bioexcel/biobb_wf_cmip/HEAD?labpath=biobb_wf_cmip%2Fnotebooks%2Fbiobb_wf_cmip.ipynb)
 
 ***
 
