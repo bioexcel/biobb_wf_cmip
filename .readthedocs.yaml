@@ -14,3 +14,6 @@ build:
 sphinx:
    configuration: biobb_wf_cmip/docs/source/conf.py
 
+python:
+  install:
+    - requirements: biobb_wf_cmip/docs/requirements.txt
