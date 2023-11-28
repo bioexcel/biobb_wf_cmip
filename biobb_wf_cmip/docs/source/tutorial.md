@@ -975,7 +975,7 @@ ipywidgets.HBox([view1, view2])
 A specific property of the **cmip building block** (*execution_type = check_only*) allows the calculation of the **3D grids**, and accepts params such as *perfill*, which specifies the **portion of the grid** filled by the input (host) structure or *box_size_factor*, which increases the **size of the grid**. The computed **grids** can be then used as an input for the final **interaction energies** calculations.
 
 ***
-<img src="Files/grid2.png" alt="3D Grid" title="3D Grid" width="200" /></img>
+<img src="_static/grid2.png" alt="3D Grid" title="3D Grid" width="200" /></img>
 ***
 **Building Blocks** used:
  - [cmip_run](https://biobb-cmip.readthedocs.io/en/latest/cmip.html#module-cmip.cmip) from **biobb_cmip.cmip.cmip_run**
