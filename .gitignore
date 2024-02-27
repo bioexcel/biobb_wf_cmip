@@ -21,6 +21,8 @@ biobb_wf_cmip/notebooks/*.rst
 biobb_wf_cmip/notebooks/*.crd
 biobb_wf_cmip/notebooks/*.web.ipynb
 biobb_wf_cmip/notebooks/*.docs.ipynb
+biobb_wf_cmip/docs/notebooks/
+biobb_wf_cmip/html/biobb_wf_cmip.web.ipynb
 *.old.ipynb
 *.bk.ipynb
 

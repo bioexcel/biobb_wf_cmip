@@ -1,7 +1,7 @@
 # Classical Molecular Interaction Potentials tutorial using BioExcel Building Blocks (biobb)
 
 ***
-This tutorial aims to illustrate the process of computing **classical molecular interaction potentials** from **protein structures**, step by step, using the **BioExcel Building Blocks library (biobb)**. Examples shown are **Molecular Interaction Potentials (MIPs) grids, protein-protein/ligand interaction potentials, and protein titration**. The particular structures used are the **Lysozyme** protein (PDB code [1AKI](https://www.rcsb.org/structure/1aki)), the **Epidermal Growth Factor Receptor** kinase domain (PDB code [4HJO](https://www.rcsb.org/structure/4HJO)) complexed with the **Erlotinib** inhibitor (PDB code [AQ4](https://www.rcsb.org/ligand/AQ4)),  and a MD simulation of the complex formed by the **SARS-CoV-2 Receptor Binding Domain and the human Angiotensin Converting Enzyme 2** (PDB code [6VW1](https://www.rcsb.org/structure/6vw1)). 
+This tutorial aims to illustrate the process of computing **classical molecular interaction potentials** from **protein structures**, step by step, using the **BioExcel Building Blocks library (biobb)**. Examples shown are **Molecular Interaction Potentials (MIPs) grids, protein-protein/ligand interaction potentials, and protein titration**. The particular structures used are the **Lysozyme** protein (PDB code [1AKI](https://www.rcsb.org/structure/1aki), [https://doi.org/10.2210/pdb1AKI/pdb](https://doi.org/10.2210/pdb1AKI/pdb)), the **Epidermal Growth Factor Receptor** kinase domain (PDB code [4HJO](https://www.rcsb.org/structure/4HJO), [https://doi.org/10.2210/pdb4HJO/pdb](https://doi.org/10.2210/pdb4HJO/pdb)) complexed with the **Erlotinib** inhibitor (PDB code [AQ4](https://www.rcsb.org/ligand/AQ4), DrugBank Ligand Code [DB00530](https://go.drugbank.com/drugs/DB00530)),  and a MD simulation of the complex formed by the **SARS-CoV-2 Receptor Binding Domain and the human Angiotensin Converting Enzyme 2** (PDB code [6VW1](https://www.rcsb.org/structure/6vw1) [https://doi.org/10.2210/pdb6VW1/pdb](https://doi.org/10.2210/pdb6VW1/pdb)). 
 
 The code wrapped is the ***Classical Molecular Interaction Potentials ([CMIP](https://anaconda.org/bioconda/cmip))*** code:
 
@@ -71,9 +71,9 @@ jupyter-notebook biobb_wf_cmip/notebooks/biobb_wf_cmip.ipynb
 <a id="input"></a>
 ## Input parameters
 **Input parameters** needed:
- - **pdbCode**: PDB code of the protein structure (e.g. 1AKI)
- - **complexCode**: PDB code of the protein-ligand complex (e.g. 4HJO [*EGFR + Erlotinib*]) 
- - **ligandCode**: PDB code of the ligand (e.g. AQ4 [*Erlotinib*])
+ - **pdbCode**: PDB code of the protein structure (e.g. 1AKI, [https://doi.org/10.2210/pdb1AKI/pdb](https://doi.org/10.2210/pdb1AKI/pdb))
+ - **complexCode**: PDB code of the protein-ligand complex (e.g. 4HJO [*EGFR + Erlotinib*], [https://doi.org/10.2210/pdb4HJO/pdb](https://doi.org/10.2210/pdb4HJO/pdb)) 
+ - **ligandCode**: PDB code of the ligand (e.g. AQ4 [*Erlotinib*], DrugBank Ligand Code [DB00530](https://go.drugbank.com/drugs/DB00530))
  - **mol_charge**: Charge of the small molecule
  - **MDCode**: Code of the Molecular Dynamics trajectory (e.g. RBD-hACE2)
      - **inputPDB_MD**: MD reference structure (PDB format)
@@ -402,7 +402,7 @@ To illustrate the calculation of the **interaction potentials** between two subu
 ***
 ## Protein-Ligand Interaction Energies
 
-This example illustrates the steps needed to compute the **protein-ligand interaction energies** from a **crystal structure** of the **complex** taken directly from the **PDB data bank**. The particular example used is the **Epidermal Growth Factor Receptor** kinase domain (PDB code [4HJO](https://www.rcsb.org/structure/4HJO)) with **Erlotinib** inhibitor (PDB code [AQ4](https://www.rcsb.org/ligand/AQ4)). 
+This example illustrates the steps needed to compute the **protein-ligand interaction energies** from a **crystal structure** of the **complex** taken directly from the **PDB data bank**. The particular example used is the **Epidermal Growth Factor Receptor** kinase domain (PDB code [4HJO](https://www.rcsb.org/structure/4HJO), [https://doi.org/10.2210/pdb4HJO/pdb](https://doi.org/10.2210/pdb4HJO/pdb)) with **Erlotinib** inhibitor (PDB code [AQ4](https://www.rcsb.org/ligand/AQ4), DrugBank Ligand Code [DB00530](https://go.drugbank.com/drugs/DB00530)). 
 
 To properly compute the **interaction energies**, the **protein-ligand** complex needs to be pre-processed, adding the (typically) missing **hydrogen atoms**, finding out the **atomic charges** and **elements**, and **relaxing** the structure to avoid **steric issues** due to **crystallographic packing**. All these steps are performed in the following cells using **BioBB building blocks**
 
@@ -877,7 +877,7 @@ view
 ***
 ## Protein-Protein Interaction Energies
 
-This example illustrates the steps needed to compute the **protein-protein interaction energies** from a **structure conformation** of the **complex** taken directly from a **Molecular Dynamics simulation**. The particular example used is the **SARS-CoV-2 Receptor Binding Domain (RBD)** complexed with the human **Angiotensin Converting Enzyme 2 (hACE2)** (PDB code [6VW1](https://www.rcsb.org/structure/6vw1), MD code [MCV1900410](https://bioexcel-cv19.bsc.es/#/id/MCV1900410/overview)). 
+This example illustrates the steps needed to compute the **protein-protein interaction energies** from a **structure conformation** of the **complex** taken directly from a **Molecular Dynamics simulation**. The particular example used is the **SARS-CoV-2 Receptor Binding Domain (RBD)** complexed with the human **Angiotensin Converting Enzyme 2 (hACE2)** (PDB code [6VW1](https://www.rcsb.org/structure/6vw1), MD code [MCV1900410](https://bioexcel-cv19.bsc.es/#/id/MCV1900410/overview) [https://doi.org/10.2210/pdb6VW1/pdb](https://doi.org/10.2210/pdb6VW1/pdb)). 
 
 <a id="visRBD-hACE2"></a>
 ### Visualizing 3D structure
