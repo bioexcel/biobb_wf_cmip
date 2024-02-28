@@ -613,7 +613,7 @@ view2
 ipywidgets.HBox([view1, view2])
 ```
 
-<img src='_static/ngl11.png' style='float:left; width:33%;'></img><img src='_static/ngl12.png' style='float:left; width:33%;'></img>
+<img src='_static/ngl11.png' ></img>
 
 <a id="systemTop"></a>
 ***
@@ -992,7 +992,7 @@ view2
 ipywidgets.HBox([view1, view2])
 ```
 
-<img src='_static/ngl15.png' style='float:left; width:33%;'></img><img src='_static/ngl16.png' style='float:left; width:33%;'></img>
+<img src='_static/ngl15.png' ></img>
 
 <a id="cmip_boxes"></a>
 ***
