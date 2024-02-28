@@ -1,7 +1,7 @@
 # Classical Molecular Interaction Potentials tutorial using BioExcel Building Blocks (biobb)
 
 ***
-This tutorial aims to illustrate the process of computing **classical molecular interaction potentials** from **protein structures**, step by step, using the **BioExcel Building Blocks library (biobb)**. Examples shown are **Molecular Interaction Potentials (MIPs) grids, protein-protein/ligand interaction potentials, and protein titration**. The particular structures used are the **Lysozyme** protein (PDB code [1AKI](https://www.rcsb.org/structure/1aki), [https://doi.org/10.2210/pdb1AKI/pdb](https://doi.org/10.2210/pdb1AKI/pdb)), the **Epidermal Growth Factor Receptor** kinase domain (PDB code [4HJO](https://www.rcsb.org/structure/4HJO), [https://doi.org/10.2210/pdb4HJO/pdb](https://doi.org/10.2210/pdb4HJO/pdb)) complexed with the **Erlotinib** inhibitor (PDB code [AQ4](https://www.rcsb.org/ligand/AQ4), DrugBank Ligand Code [DB00530](https://go.drugbank.com/drugs/DB00530)),  and a MD simulation of the complex formed by the **SARS-CoV-2 Receptor Binding Domain and the human Angiotensin Converting Enzyme 2** (PDB code [6VW1](https://www.rcsb.org/structure/6vw1) [https://doi.org/10.2210/pdb6VW1/pdb](https://doi.org/10.2210/pdb6VW1/pdb)). 
+This tutorial aims to illustrate the process of computing **classical molecular interaction potentials** from **protein structures**, step by step, using the **BioExcel Building Blocks library (biobb)**. Examples shown are **Molecular Interaction Potentials (MIPs) grids, protein-protein/ligand interaction potentials, and protein titration**. The particular structures used are the **Lysozyme** protein (PDB code [1AKI](https://www.rcsb.org/structure/1aki), [https://doi.org/10.2210/pdb1AKI/pdb](https://doi.org/10.2210/pdb1AKI/pdb)), the **Epidermal Growth Factor Receptor** kinase domain (PDB code [4HJO](https://www.rcsb.org/structure/4HJO), [https://doi.org/10.2210/pdb4HJO/pdb](https://doi.org/10.2210/pdb4HJO/pdb)) complexed with the **Erlotinib** inhibitor (PDB code [AQ4](https://www.rcsb.org/ligand/AQ4), DrugBank Ligand Code [DB00530](https://go.drugbank.com/drugs/DB00530)),  and a MD simulation of the complex formed by the **SARS-CoV-2 Receptor Binding Domain and the human Angiotensin Converting Enzyme 2** (PDB code [6VW1](https://www.rcsb.org/structure/6vw1), [https://doi.org/10.2210/pdb6VW1/pdb](https://doi.org/10.2210/pdb6VW1/pdb)). 
 
 The code wrapped is the ***Classical Molecular Interaction Potentials ([CMIP](https://anaconda.org/bioconda/cmip))*** code:
 
@@ -138,6 +138,8 @@ view._remote_call('setSize', target='Widget', args=['','600px'])
 view
 ```
 
+<img src='_static/ngl1.png'></img>
+
 <a id="preparePDB"></a>
 ***
 ## CMIP PDB Preparation (from PDB structure)
@@ -227,6 +229,8 @@ view._remote_call('setSize', target='Widget', args=['','600px'])
 view
 ```
 
+<img src='_static/ngl2.png'></img>
+
 <a id="mips"></a>
 ***
 ## Molecular Interaction Potentials (MIPs)
@@ -270,7 +274,7 @@ Visualizing the **positive MIP grid**, with protein regions with **higher affini
 
 ```python
 view = nglview.show_structure_file(mip_pos_cube)
-view.add_component(cmipPDB)
+view.add_component(nglview.FileStructure(cmipPDB))
 view.clear_representations()
 view.add_representation(repr_type='cartoon', selection='protein', color='sstruc')
 view.add_surface(isolevelType="value", isolevel=-5, color="blue")
@@ -278,6 +282,8 @@ view.component_1.center()
 view._remote_call('setSize', target='Widget', args=['','600px'])
 view
 ```
+
+<img src='_static/ngl3.png'></img>
 
 <a id="mip_neg"></a>
 ### Negative MIP
@@ -306,7 +312,7 @@ Visualizing the **negative MIP grid**, with protein regions with **higher affini
 
 ```python
 view = nglview.show_structure_file(mip_neg_cube)
-view.add_component(cmipPDB)
+view.add_component(nglview.FileStructure(cmipPDB))
 view.clear_representations()
 view.add_representation(repr_type='cartoon', selection='protein', color='sstruc')
 view.add_surface(isolevelType="value", isolevel=-10, color="red")
@@ -314,6 +320,8 @@ view.component_1.center()
 view._remote_call('setSize', target='Widget', args=['','600px'])
 view
 ```
+
+<img src='_static/ngl4.png'></img>
 
 <a id="mip_neutral"></a>
 ### Neutral MIP
@@ -342,7 +350,7 @@ Visualizing the **neutral MIP grid**, with protein regions with **lower affinity
 
 ```python
 view = nglview.show_structure_file(mip_neutral_cube)
-view.add_component(cmipPDB)
+view.add_component(nglview.FileStructure(cmipPDB))
 view.clear_representations()
 view.add_representation(repr_type='cartoon', selection='protein', color='sstruc')
 view.add_surface(isolevelType="value", isolevel=-1, color="grey")
@@ -350,6 +358,8 @@ view.component_1.center()
 view._remote_call('setSize', target='Widget', args=['','600px'])
 view
 ```
+
+<img src='_static/ngl5.png'></img>
 
 <a id="visMIP4"></a>
 ### Visualizing 3D structure
@@ -359,7 +369,7 @@ Visualizing all **MIP grids**, for comparison purposes.
 ```python
 #Show different structures generated (for comparison)
 view1 = nglview.show_structure_file(cmipPDB)
-view1.add_component(mip_pos_cube)
+view1.add_component(nglview.FileStructure(mip_pos_cube))
 view1.component_0.add_representation(repr_type='cartoon', selection='protein', color='sstruc')
 view1.component_1.add_surface(isolevelType="value", isolevel=-5, color="blue")
 view1.component_0.center()
@@ -367,7 +377,7 @@ view1._remote_call('setSize', target='Widget', args=['350px','400px'])
 view1.camera='orthographic'
 view1
 view2 = nglview.show_structure_file(cmipPDB)
-view2.add_component(mip_neg_cube)
+view2.add_component(nglview.FileStructure(mip_neg_cube))
 view2.component_0.add_representation(repr_type='cartoon', selection='protein', color='sstruc')
 view2.component_1.add_surface(isolevelType="value", isolevel=-10, color="red")
 view2.component_0.center()
@@ -375,7 +385,7 @@ view2._remote_call('setSize', target='Widget', args=['350px','400px'])
 view2.camera='orthographic'
 view2
 view3 = nglview.show_structure_file(cmipPDB)
-view3.add_component(mip_neutral_cube)
+view3.add_component(nglview.FileStructure(mip_neutral_cube))
 view3.component_0.add_representation(repr_type='cartoon', selection='protein', color='sstruc')
 view3.component_1.add_surface(isolevelType="value", isolevel=-1, color="grey")
 view3.component_0.center()
@@ -384,6 +394,8 @@ view3.camera='orthographic'
 view3
 ipywidgets.HBox([view1, view2, view3])
 ```
+
+<img src='_static/ngl6.png' style='float:left;width:33%;'></img><img src='_static/ngl7.png' style='float:left;width:33%;'></img><img src='_static/ngl8.png' style='float:left;width:33%;'></img>
 
 <a id="interaction"></a>
 ***
@@ -402,7 +414,7 @@ To illustrate the calculation of the **interaction potentials** between two subu
 ***
 ## Protein-Ligand Interaction Energies
 
-This example illustrates the steps needed to compute the **protein-ligand interaction energies** from a **crystal structure** of the **complex** taken directly from the **PDB data bank**. The particular example used is the **Epidermal Growth Factor Receptor** kinase domain (PDB code [4HJO](https://www.rcsb.org/structure/4HJO), [https://doi.org/10.2210/pdb4HJO/pdb](https://doi.org/10.2210/pdb4HJO/pdb)) with **Erlotinib** inhibitor (PDB code [AQ4](https://www.rcsb.org/ligand/AQ4), DrugBank Ligand Code [DB00530](https://go.drugbank.com/drugs/DB00530)). 
+This example illustrates the steps needed to compute the **protein-ligand interaction energies** from a **crystal structure** of the **complex** taken directly from the **PDB data bank**. The particular example used is the **Epidermal Growth Factor Receptor** kinase domain (PDB code [4HJO](https://www.rcsb.org/structure/4HJO, [https://doi.org/10.2210/pdb4HJO/pdb](https://doi.org/10.2210/pdb4HJO/pdb)) with **Erlotinib** inhibitor (PDB code [AQ4](https://www.rcsb.org/ligand/AQ4), DrugBank Ligand Code [DB00530](https://go.drugbank.com/drugs/DB00530)). 
 
 To properly compute the **interaction energies**, the **protein-ligand** complex needs to be pre-processed, adding the (typically) missing **hydrogen atoms**, finding out the **atomic charges** and **elements**, and **relaxing** the structure to avoid **steric issues** due to **crystallographic packing**. All these steps are performed in the following cells using **BioBB building blocks**
 
@@ -449,6 +461,8 @@ view._remote_call('setSize', target='Widget', args=['','600px'])
 view
 ```
 
+<img src='_static/ngl9.png'></img>
+
 <a id="delWater"></a>
 ***
 ## Removing Water Molecules
@@ -488,6 +502,8 @@ view.add_representation(repr_type='ball+stick', selection='hetero')
 view._remote_call('setSize', target='Widget', args=['','600px'])
 view
 ```
+
+<img src='_static/ngl10.png'></img>
 
 <a id="ligandTop"></a>
 ***
@@ -596,6 +612,8 @@ view2.camera='orthographic'
 view2
 ipywidgets.HBox([view1, view2])
 ```
+
+<img src='_static/ngl11.png' style='float:left; width:33%;'></img><img src='_static/ngl12.png' style='float:left; width:33%;'></img>
 
 <a id="systemTop"></a>
 ***
@@ -816,6 +834,8 @@ fig = {"data": [go.Scatter(x=atom_list, y=energy_dict['ES&VDW'])],
 plotly.offline.iplot(fig)
 ```
 
+<img src='_static/plot1.png'></img>
+
 <a id="cmip_protein_ligand_plot2"></a>
 ***
 ### Plotting the Protein-Ligand interaction energies by residue
@@ -852,6 +872,8 @@ print ("Residues involved in the interaction (energy < " + str(energy_cutoff) + 
 print (identified_residues_ngl)
 ```
 
+<img src='_static/plot2.png'></img>
+
 <a id="cmip_protein_ligand_ngl"></a>
 ***
 ### Visualizing the Protein-Ligand interaction residues
@@ -873,11 +895,13 @@ view._remote_call('setSize', target='Widget', args=['','600px'])
 view
 ```
 
+<img src='_static/ngl13.png'></img>
+
 <a id="prot-prot"></a>
 ***
 ## Protein-Protein Interaction Energies
 
-This example illustrates the steps needed to compute the **protein-protein interaction energies** from a **structure conformation** of the **complex** taken directly from a **Molecular Dynamics simulation**. The particular example used is the **SARS-CoV-2 Receptor Binding Domain (RBD)** complexed with the human **Angiotensin Converting Enzyme 2 (hACE2)** (PDB code [6VW1](https://www.rcsb.org/structure/6vw1), MD code [MCV1900410](https://bioexcel-cv19.bsc.es/#/id/MCV1900410/overview) [https://doi.org/10.2210/pdb6VW1/pdb](https://doi.org/10.2210/pdb6VW1/pdb)). 
+This example illustrates the steps needed to compute the **protein-protein interaction energies** from a **structure conformation** of the **complex** taken directly from a **Molecular Dynamics simulation**. The particular example used is the **SARS-CoV-2 Receptor Binding Domain (RBD)** complexed with the human **Angiotensin Converting Enzyme 2 (hACE2)** (PDB code [6VW1](https://www.rcsb.org/structure/6vw1), MD code [MCV1900410](https://bioexcel-cv19.bsc.es/#/id/MCV1900410/overview), [https://doi.org/10.2210/pdb6VW1/pdb](https://doi.org/10.2210/pdb6VW1/pdb)). 
 
 <a id="visRBD-hACE2"></a>
 ### Visualizing 3D structure
@@ -891,6 +915,8 @@ view.add_representation(repr_type='cartoon', selection='protein', color='chainna
 view._remote_call('setSize', target='Widget', args=['','400px'])
 view
 ```
+
+<img src='_static/ngl14.png'></img>
 
 <a id="preparePDB_MD"></a>
 ***
@@ -966,6 +992,8 @@ view2
 ipywidgets.HBox([view1, view2])
 ```
 
+<img src='_static/ngl15.png' style='float:left; width:33%;'></img><img src='_static/ngl16.png' style='float:left; width:33%;'></img>
+
 <a id="cmip_boxes"></a>
 ***
 ## CMIP Boxes
@@ -975,7 +1003,7 @@ ipywidgets.HBox([view1, view2])
 A specific property of the **cmip building block** (*execution_type = check_only*) allows the calculation of the **3D grids**, and accepts params such as *perfill*, which specifies the **portion of the grid** filled by the input (host) structure or *box_size_factor*, which increases the **size of the grid**. The computed **grids** can be then used as an input for the final **interaction energies** calculations.
 
 ***
-<img src="_static/grid2.png" alt="3D Grid" title="3D Grid" width="200" /></img>
+<img src="Files/grid2.png" alt="3D Grid" title="3D Grid" width="200" /></img>
 ***
 **Building Blocks** used:
  - [cmip_run](https://biobb-cmip.readthedocs.io/en/latest/cmip.html#module-cmip.cmip) from **biobb_cmip.cmip.cmip_run**
@@ -1027,6 +1055,8 @@ view._remote_call('setSize', target='Widget', args=['','600px'])
 view
 ```
 
+<img src='_static/ngl17.png'></img>
+
 ### Box (3D Grid) for the hACE2
 Computing and visualizing the **box** enclosing the **hACE2 monomer**. Applying a *perfill* factor of 0.8. 
 
@@ -1072,6 +1102,8 @@ view._remote_call('setSize', target='Widget', args=['','600px'])
 view
 ```
 
+<img src='_static/ngl18.png'></img>
+
 ### Box (3D Grid) for the RBD-hACE2 complex
 Computing and visualizing the **box** enclosing the **RBD-hACE2 complex**. Applying a *perfill* factor of 0.6. 
 
@@ -1116,6 +1148,8 @@ view.center()
 view._remote_call('setSize', target='Widget', args=['','600px'])
 view
 ```
+
+<img src='_static/ngl19.png'></img>
 
 <a id="RBDinteraction"></a>
 ***
@@ -1204,6 +1238,8 @@ view._remote_call('setSize', target='Widget', args=['','600px'])
 view
 ```
 
+<img src='_static/ngl20.png'></img>
+
 <a id="plotRBD_atoms"></a>
 ### Interaction energies by atom
 Visualizing the **interaction potential energies** computed by **CMIP**. The plot shows **interactions energies** (in kcal/mol, Y axis) for **each of the atoms** of the **RBD protein** (X axis). 
@@ -1225,6 +1261,8 @@ fig = {"data": [go.Scatter(x=atom_list, y=energy_dict['ES&VDW'])],
 
 plotly.offline.iplot(fig)
 ```
+
+<img src='_static/plot3.png'></img>
 
 <a id="plotRBD_residues"></a>
 ### Interaction energies by residue
@@ -1259,6 +1297,8 @@ print ("Residues involved in the interaction (energy < " + str(energy_cutoff) + 
 print (identified_residues_ngl)
 ```
 
+<img src='_static/plot4.png'></img>
+
 <a id="cmip_protein_protein_RBD_ngl"></a>
 ***
 ### Visualizing the RBD residues involved in the interaction with hACE2
@@ -1279,6 +1319,8 @@ view.center(identified_residues_ngl)
 view._remote_call('setSize', target='Widget', args=['','600px'])
 view
 ```
+
+<img src='_static/ngl21.png'></img>
 
 <a id="hACE2interaction"></a>
 ***
@@ -1366,6 +1408,8 @@ view._remote_call('setSize', target='Widget', args=['','600px'])
 view
 ```
 
+<img src='_static/ngl22.png'></img>
+
 <a id="plotRBD_atoms"></a>
 ### Interaction energies by atom
 Visualizing the **interaction potential energies** computed by **CMIP**. The plot shows **interactions energies** (in kcal/mol, Y axis) for **each of the atoms** of the **hACE2 protein** (X axis). 
@@ -1387,6 +1431,8 @@ fig = {"data": [go.Scatter(x=atom_list, y=energy_dict['ES&VDW'])],
 
 plotly.offline.iplot(fig)
 ```
+
+<img src='_static/plot5.png'></img>
 
 <a id="plotRBD_residues"></a>
 ### Interaction energies by residue
@@ -1421,6 +1467,8 @@ print ("Residues involved in the interaction (energy < " + str(energy_cutoff) + 
 print (identified_residues_ngl)
 ```
 
+<img src='_static/plot6.png'></img>
+
 <a id="cmip_protein_protein_hACE2_ngl"></a>
 ***
 ### Visualizing the hACE2 residues involved in the interaction with RBD
@@ -1442,6 +1490,8 @@ view.center(identified_residues_ngl)
 view._remote_call('setSize', target='Widget', args=['','600px'])
 view
 ```
+
+<img src='_static/ngl23.png'></img>
 
 ***
 <a id="questions"></a>
