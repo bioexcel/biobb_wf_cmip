@@ -25,7 +25,7 @@ The code wrapped is the ***Classical Molecular Interaction Potentials (CMIP)*** 
  * [biobb_chemistry](https://github.com/bioexcel/biobb_chemistry): Tools to perform chemoinformatics on molecular structures.
  * [biobb_amber](https://github.com/bioexcel/biobb_amber): Tools to setup and simulate atomistic MD simulations using AMBER MD package.
 
-### Auxiliar libraries used
+### Auxiliary libraries used
 
 * [jupyter](https://jupyter.org/): Free software, open standards, and web services for interactive computing across all programming languages.
 * [nglview](http://nglviewer.org/#nglview): Jupyter/IPython widget to interactively view molecular structures and trajectories in notebooks.

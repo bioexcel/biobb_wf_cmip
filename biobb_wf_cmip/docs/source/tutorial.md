@@ -812,7 +812,7 @@ cmip_run(input_pdb_path=cmipPDB_EGFR_Prot_ignored,
 ***
 ### Plotting the Protein-Ligand interaction energies by atom
 
-Plotting the **Protein-Ligand interaction energies** with the **protein atom id** in the x-axis and the **potential energies** in KCal/mol in the y-axis. An auxiliar function included in the **biobb_cmip** module is used to extract the energies by atom (*get_energies_byat*).
+Plotting the **Protein-Ligand interaction energies** with the **protein atom id** in the x-axis and the **potential energies** in KCal/mol in the y-axis. An auxiliary function included in the **biobb_cmip** module is used to extract the energies by atom (*get_energies_byat*).
 
 ***
 
@@ -840,7 +840,7 @@ plotly.offline.iplot(fig)
 ***
 ### Plotting the Protein-Ligand interaction energies by residue
 
-Plotting the **Protein-Ligand interaction energies** with the **protein residue sequence** in the x-axis and the **potential energies** in KCal/mol in the y-axis. An auxiliar function included in the **biobb_cmip** module is used to extract the energies by residues (*get_energies_byres*).
+Plotting the **Protein-Ligand interaction energies** with the **protein residue sequence** in the x-axis and the **potential energies** in KCal/mol in the y-axis. An auxiliary function included in the **biobb_cmip** module is used to extract the energies by residues (*get_energies_byres*).
 
 ***
 
