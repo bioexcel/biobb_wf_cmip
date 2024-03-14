@@ -1,8 +1,9 @@
 
 {
   "@context": "http://schema.org",
-  "name": "Molecular Interaction Potentials workflow",
+  "@id": "https://github.com/bioexcel/biobb_wf_cmip",
   "@type": "ItemList",
+  "name": "Molecular Interaction Potentials workflow",
   "itemListElement": [
     {
       "@type": "SoftwareApplication",
