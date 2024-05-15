@@ -20,7 +20,7 @@ The code wrapped is the ***Classical Molecular Interaction Potentials ([CMIP](ht
  - [biobb_chemistry](https://github.com/bioexcel/biobb_chemistry): Tools to perform chemoinformatics on molecular structures.
  - [biobb_amber](https://github.com/bioexcel/biobb_amber): Tools to setup and simulate atomistic MD simulations using AMBER MD package.
   
-### Auxiliar libraries used
+### Auxiliary libraries used
 
 * [jupyter](https://jupyter.org/): Free software, open standards, and web services for interactive computing across all programming languages.
 * [nglview](http://nglviewer.org/#nglview): Jupyter/IPython widget to interactively view molecular structures and trajectories in notebooks.
@@ -67,6 +67,50 @@ jupyter-notebook biobb_wf_cmip/notebooks/biobb_wf_cmip.ipynb
 <img src="https://bioexcel.eu/wp-content/uploads/2019/04/Bioexcell_logo_1080px_transp.png" alt="Bioexcel2 logo"
 	title="Bioexcel2 logo" width="400" />
 ***
+
+## Initializing colab
+The two cells below are used only in case this notebook is executed via **Google Colab**. Take into account that, for running conda on **Google Colab**, the **condacolab** library must be installed. As [explained here](https://pypi.org/project/condacolab/), the installation requires a **kernel restart**, so when running this notebook in **Google Colab**, don't run all cells until this **installation** is properly **finished** and the **kernel** has **restarted**.
+
+
+```python
+# Only executed when using google colab
+import sys
+if 'google.colab' in sys.modules:
+  import subprocess
+  from pathlib import Path
+  try:
+    subprocess.run(["conda", "-V"], check=True)
+  except FileNotFoundError:
+    subprocess.run([sys.executable, "-m", "pip", "install", "condacolab"], check=True)
+    import condacolab
+    condacolab.install()
+    # Clone repository
+    repo_URL = "https://github.com/bioexcel/biobb_wf_cmip.git"
+    repo_name = Path(repo_URL).name.split('.')[0]
+    if not Path(repo_name).exists():
+      subprocess.run(["mamba", "install", "-y", "git"], check=True)
+      subprocess.run(["git", "clone", repo_URL], check=True)
+      print("⏬ Repository properly cloned.")
+    # Install environment
+    print("⏳ Creating environment...")
+    env_file_path = f"{repo_name}/conda_env/environment.yml"
+    subprocess.run(["mamba", "env", "update", "-n", "base", "-f", env_file_path], check=True)
+    print("🎨 Install NGLView dependencies...")
+    subprocess.run(["mamba", "install", "-y", "-c", "conda-forge", "nglview==3.0.8", "ipywidgets=7.7.2"], check=True)
+    print("👍 Conda environment successfully created and updated.")
+```
+
+
+```python
+# Enable widgets for colab
+if 'google.colab' in sys.modules:
+  from google.colab import output
+  output.enable_custom_widget_manager()
+  # Change working dir
+  import os
+  os.chdir("biobb_wf_cmip/biobb_wf_cmip/notebooks")
+  print(f"📂 New working directory: {os.getcwd()}")
+```
 
 <a id="input"></a>
 ## Input parameters
@@ -193,6 +237,7 @@ prop = {
 }
 
 cmip_titration(input_pdb_path=cmipPDB,
+          input_vdw_params_path='/usr/local/share/cmip/dat/vdwprm' if 'google.colab' in sys.modules else None,
           output_pdb_path=wat_ions_pdb,
           output_log_path=wat_ions_log,
           properties=prop)
@@ -262,6 +307,7 @@ prop = {
 }
 
 cmip_run( input_pdb_path=cmipPDB,
+          input_vdw_params_path='/usr/local/share/cmip/dat/vdwprm' if 'google.colab' in sys.modules else None,
           output_log_path=mip_pos_log,
           output_cube_path=mip_pos_cube,
           properties=prop)
@@ -300,9 +346,10 @@ prop = {
 }
 
 cmip_run(input_pdb_path=cmipPDB,
-          output_log_path=mip_neg_log,
-          output_cube_path=mip_neg_cube,
-          properties=prop)
+         input_vdw_params_path='/usr/local/share/cmip/dat/vdwprm' if 'google.colab' in sys.modules else None,
+         output_log_path=mip_neg_log,
+         output_cube_path=mip_neg_cube,
+         properties=prop)
 ```
 
 <a id="visMIP2"></a>
@@ -338,6 +385,7 @@ prop = {
 }
 
 cmip_run( input_pdb_path=cmipPDB,
+          input_vdw_params_path='/usr/local/share/cmip/dat/vdwprm' if 'google.colab' in sys.modules else None,
           output_log_path=mip_neutral_log,
           output_cube_path=mip_neutral_cube,
           properties=prop)
@@ -395,7 +443,7 @@ view3
 ipywidgets.HBox([view1, view2, view3])
 ```
 
-<img src='_static/ngl6.png' style='float:left;width:33%;'></img><img src='_static/ngl7.png' style='float:left;width:33%;'></img><img src='_static/ngl8.png' style='float:left;width:33%;'></img>
+<img src='_static/ngl6.png' style="float:left;width:33%;"></img><img src='_static/ngl7.png' style="float:left;width:33%;"></img><img src='_static/ngl8.png' style="float:left;width:33%;"></img>
 
 <a id="interaction"></a>
 ***
@@ -613,7 +661,7 @@ view2
 ipywidgets.HBox([view1, view2])
 ```
 
-<img src='_static/ngl11.png' ></img>
+<img src='_static/ngl11.png'></img>
 
 <a id="systemTop"></a>
 ***
@@ -803,6 +851,7 @@ prop = {
 
 cmip_run(input_pdb_path=cmipPDB_EGFR_Prot_ignored,
          input_probe_pdb_path=cmipPDB_EGFR_Prot,
+         input_vdw_params_path='/usr/local/share/cmip/dat/vdwprm' if 'google.colab' in sys.modules else None,
          output_log_path=EGFR_energies_log,
          output_byat_path=EGFR_byat_out,
          properties=prop)
@@ -818,20 +867,23 @@ Plotting the **Protein-Ligand interaction energies** with the **protein atom id*
 
 
 ```python
-import plotly
 import plotly.graph_objs as go
 from biobb_cmip.utils.representation import get_energies_byat
 
 atom_list, energy_dict = get_energies_byat(EGFR_byat_out, cutoff=50)
 
-plotly.offline.init_notebook_mode(connected=True)
+# Create a scatter plot
+fig = go.Figure(data=go.Scatter(x=atom_list, y=energy_dict['ES&VDW'], mode='lines'))
 
-fig = {"data": [go.Scatter(x=atom_list, y=energy_dict['ES&VDW'])],
-       "layout": go.Layout(title="CMIP Interaction Potential", 
-                           xaxis=dict(title = "Atom Number"), 
-                           yaxis=dict(title = "Potential Energy Kcal/mol"))}
+# Update layout
+fig.update_layout(title="CMIP Interaction Potential",
+                  xaxis_title="Atom Number",
+                  yaxis_title="Potential Energy Kcal/mol",
+                  height=600)
 
-plotly.offline.iplot(fig)
+# Show the figure (renderer changes for colab and jupyter)
+rend = 'colab' if 'google.colab' in sys.modules else ''
+fig.show(renderer=rend)
 ```
 
 <img src='_static/plot1.png'></img>
@@ -846,22 +898,24 @@ Plotting the **Protein-Ligand interaction energies** with the **protein residue 
 
 
 ```python
-import plotly
 import plotly.graph_objs as go
 import re
 from biobb_cmip.utils.representation import get_energies_byres
 
-
 res_list, energy_dict = get_energies_byres(EGFR_byat_out, cutoff=55)
 
-plotly.offline.init_notebook_mode(connected=True)
+# Create a scatter plot
+fig = go.Figure(data=go.Scatter(x=res_list, y=energy_dict['ES&VDW'], mode='lines'))
 
-fig = {"data": [go.Scatter(x=res_list, y=energy_dict['ES&VDW'])],
-       "layout": go.Layout(title="CMIP Interaction Potential", 
-                           xaxis=dict(title = "Residue ID"), 
-                           yaxis=dict(title = "Potential Energy Kcal/mol"))}
+# Update layout
+fig.update_layout(title="CMIP Interaction Potential",
+                  xaxis_title="Residue ID",
+                  yaxis_title="Potential Energy Kcal/mol",
+                  height=600)
 
-plotly.offline.iplot(fig)
+# Show the figure (renderer changes for colab and jupyter)
+rend = 'colab' if 'google.colab' in sys.modules else ''
+fig.show(renderer=rend)
 
 energy_cutoff = -1.5
 identified_residues = [res_list[energy_dict['ES&VDW'].index(item)] 
@@ -992,7 +1046,7 @@ view2
 ipywidgets.HBox([view1, view2])
 ```
 
-<img src='_static/ngl15.png' ></img>
+<img src='_static/ngl15.png'></img>
 
 <a id="cmip_boxes"></a>
 ***
@@ -1028,6 +1082,7 @@ prop = {
 }
 
 cmip_run(input_pdb_path=cmipPDB_MD_RBD,
+         input_vdw_params_path='/usr/local/share/cmip/dat/vdwprm' if 'google.colab' in sys.modules else None,
          output_log_path=cmip_RBD_box_log,
          output_json_box_path=cmip_RBD_box_json,
          properties=prop)
@@ -1076,6 +1131,7 @@ prop = {
 }
 
 cmip_run(input_pdb_path=cmipPDB_MD_hACE2,
+         input_vdw_params_path='/usr/local/share/cmip/dat/vdwprm' if 'google.colab' in sys.modules else None,
          output_log_path=cmip_hACE2_box_log,
          output_json_box_path=cmip_hACE2_box_json,
          properties=prop)
@@ -1123,6 +1179,7 @@ prop = {
 }
 
 cmip_run(input_pdb_path=cmipPDB_MD,
+         input_vdw_params_path='/usr/local/share/cmip/dat/vdwprm' if 'google.colab' in sys.modules else None,
          output_log_path=cmip_COMPLEX_box_log,
          output_json_box_path=cmip_COMPLEX_box_json,
          properties=prop)
@@ -1207,6 +1264,7 @@ cmip_run(input_pdb_path=cmipPDB_MD_RBD_ignored,
          input_probe_pdb_path=cmipPDB_MD_RBD,
          input_json_box_path=cmip_RBD_box_json,
          input_json_external_box_path=cmip_COMPLEX_box_json,
+         input_vdw_params_path='/usr/local/share/cmip/dat/vdwprm' if 'google.colab' in sys.modules else None,
          output_json_box_path=output_RBD_box_json,
          output_json_external_box_path=output_COMPLEX_box_json,
          output_log_path=RBD_energies_log,
@@ -1246,20 +1304,23 @@ Visualizing the **interaction potential energies** computed by **CMIP**. The plo
 
 
 ```python
-import plotly
 import plotly.graph_objs as go
 from biobb_cmip.utils.representation import get_energies_byat
 
 atom_list, energy_dict = get_energies_byat(RBD_byat_out, cutoff=55)
 
-plotly.offline.init_notebook_mode(connected=True)
+# Create a scatter plot
+fig = go.Figure(data=go.Scatter(x=atom_list, y=energy_dict['ES&VDW'], mode='lines'))
 
-fig = {"data": [go.Scatter(x=atom_list, y=energy_dict['ES&VDW'])],
-       "layout": go.Layout(title="CMIP Interaction Potential", 
-                           xaxis=dict(title = "Atom Number"), 
-                           yaxis=dict(title = "Potential Energy Kcal/mol"))}
+# Update layout
+fig.update_layout(title="CMIP Interaction Potential",
+                  xaxis_title="Atom Number",
+                  yaxis_title="Potential Energy Kcal/mol",
+                  height=600)
 
-plotly.offline.iplot(fig)
+# Show the figure (renderer changes for colab and jupyter)
+rend = 'colab' if 'google.colab' in sys.modules else ''
+fig.show(renderer=rend)
 ```
 
 <img src='_static/plot3.png'></img>
@@ -1272,21 +1333,23 @@ NOTE: This plot reproduces the analysis (for one single snapshot) presented here
 
 
 ```python
-import plotly
 import plotly.graph_objs as go
 from biobb_cmip.utils.representation import get_energies_byres
 
-
 res_list, energy_dict = get_energies_byres(RBD_byat_out, cutoff=55)
 
-plotly.offline.init_notebook_mode(connected=True)
+# Create a scatter plot
+fig = go.Figure(data=go.Scatter(x=res_list, y=energy_dict['ES&VDW'], mode='lines'))
 
-fig = {"data": [go.Scatter(x=res_list, y=energy_dict['ES&VDW'])],
-       "layout": go.Layout(title="CMIP Interaction Potential", 
-                           xaxis=dict(title = "Residue ID"), 
-                           yaxis=dict(title = "Potential Energy Kcal/mol"))}
+# Update layout
+fig.update_layout(title="CMIP Interaction Potential",
+                  xaxis_title="Residue ID",
+                  yaxis_title="Potential Energy Kcal/mol",
+                  height=600)
 
-plotly.offline.iplot(fig)
+# Show the figure (renderer changes for colab and jupyter)
+rend = 'colab' if 'google.colab' in sys.modules else ''
+fig.show(renderer=rend)
 
 energy_cutoff = -2
 identified_residues = [res_list[energy_dict['ES&VDW'].index(item)] 
@@ -1378,6 +1441,7 @@ cmip_run(input_pdb_path=cmipPDB_MD_hACE2_ignored,
          input_probe_pdb_path=cmipPDB_MD_hACE2,
          input_json_box_path=cmip_hACE2_box_json,
          input_json_box_external_path=cmip_COMPLEX_box_json,
+         input_vdw_params_path='/usr/local/share/cmip/dat/vdwprm' if 'google.colab' in sys.modules else None,
          output_json_box_path=output_hACE2_box_json,
          output_json_external_box_path=output_COMPLEX_2_box_json,
          output_log_path=hACE2_energies_log,
@@ -1416,20 +1480,23 @@ Visualizing the **interaction potential energies** computed by **CMIP**. The plo
 
 
 ```python
-import plotly
 import plotly.graph_objs as go
 from biobb_cmip.utils.representation import get_energies_byat
 
 atom_list, energy_dict = get_energies_byat(hACE2_byat_out, cutoff=55)
 
-plotly.offline.init_notebook_mode(connected=True)
+# Create a scatter plot
+fig = go.Figure(data=go.Scatter(x=atom_list, y=energy_dict['ES&VDW'], mode='lines'))
 
-fig = {"data": [go.Scatter(x=atom_list, y=energy_dict['ES&VDW'])],
-       "layout": go.Layout(title="CMIP Interaction Potential", 
-                           xaxis=dict(title = "Atom Number"), 
-                           yaxis=dict(title = "Potential Energy Kcal/mol"))}
+# Update layout
+fig.update_layout(title="CMIP Interaction Potential",
+                  xaxis_title="Atom Number",
+                  yaxis_title="Potential Energy Kcal/mol",
+                  height=600)
 
-plotly.offline.iplot(fig)
+# Show the figure (renderer changes for colab and jupyter)
+rend = 'colab' if 'google.colab' in sys.modules else ''
+fig.show(renderer=rend)
 ```
 
 <img src='_static/plot5.png'></img>
@@ -1442,21 +1509,23 @@ NOTE: This plot reproduces the analysis (for one single snapshot) presented here
 
 
 ```python
-import plotly
 import plotly.graph_objs as go
 from biobb_cmip.utils.representation import get_energies_byres
 
-
 res_list, energy_dict = get_energies_byres(hACE2_byat_out, cutoff=55)
 
-plotly.offline.init_notebook_mode(connected=True)
+# Create a scatter plot
+fig = go.Figure(data=go.Scatter(x=res_list, y=energy_dict['ES&VDW'], mode='lines'))
 
-fig = {"data": [go.Scatter(x=res_list, y=energy_dict['ES&VDW'])],
-       "layout": go.Layout(title="CMIP Interaction Potential", 
-                           xaxis=dict(title = "Residue ID"), 
-                           yaxis=dict(title = "Potential Energy Kcal/mol"))}
+# Update layout
+fig.update_layout(title="CMIP Interaction Potential",
+                  xaxis_title="Residue ID",
+                  yaxis_title="Potential Energy Kcal/mol",
+                  height=600)
 
-plotly.offline.iplot(fig)
+# Show the figure (renderer changes for colab and jupyter)
+rend = 'colab' if 'google.colab' in sys.modules else ''
+fig.show(renderer=rend)
 
 energy_cutoff = -1.5
 identified_residues2 = [res_list[energy_dict['ES&VDW'].index(item)] 
