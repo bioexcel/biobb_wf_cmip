@@ -39,7 +39,7 @@ The code wrapped is the ***Classical Molecular Interaction Potentials (CMIP)*** 
 git clone https://github.com/bioexcel/biobb_wf_cmip.git
 cd biobb_wf_cmip
 conda env create -f conda_env/environment.yml
-conda activate biobb_CMIP_tutorial
+conda activate biobb_wf_cmip
 jupyter-notebook biobb_wf_cmip/notebooks/biobb_wf_cmip.ipynb
 ```
 

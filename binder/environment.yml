@@ -1,4 +1,4 @@
-name: biobb_CMIP_tutorial
+name: biobb_wf_cmip
 channels:
   - conda-forge
   - bioconda
